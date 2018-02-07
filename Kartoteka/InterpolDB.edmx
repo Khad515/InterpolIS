@@ -1,0 +1,545 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="Interpolmodel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Criminals">
+          <Key>
+            <PropertyRef Name="person_id" />
+          </Key>
+          <Property Name="person_id" Type="int" Nullable="false" />
+          <Property Name="person_profession" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="person_role" Type="varchar" MaxLength="200" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Parameters">
+          <Key>
+            <PropertyRef Name="person_id" />
+          </Key>
+          <Property Name="person_id" Type="int" Nullable="false" />
+          <Property Name="person_rise" Type="int" Nullable="false" />
+          <Property Name="person_weight" Type="int" Nullable="false" />
+          <Property Name="person_eyecolor" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="person_haircolor" Type="varchar" MaxLength="200" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Passports">
+          <Key>
+            <PropertyRef Name="person_id" />
+          </Key>
+          <Property Name="person_id" Type="int" Nullable="false" />
+          <Property Name="person_citizenship" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="person_nationality" Type="varchar" MaxLength="200" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Permits">
+          <Key>
+            <PropertyRef Name="person_id" />
+          </Key>
+          <Property Name="person_id" Type="int" Nullable="false" />
+          <Property Name="permit_value" Type="varchar" MaxLength="500" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Persons">
+          <Key>
+            <PropertyRef Name="person_id" />
+          </Key>
+          <Property Name="person_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="person_name" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="person_nickname" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="person_birthday" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="photo_path" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="person_status" Type="varchar" MaxLength="200" Nullable="false" />
+        </EntityType>
+        <EntityType Name="PSRelations">
+          <Key>
+            <PropertyRef Name="person_id" />
+          </Key>
+          <Property Name="person_id" Type="int" Nullable="false" />
+          <Property Name="sys_id" Type="int" Nullable="false" />
+          <Property Name="dateFrom" Type="varchar" MaxLength="500" />
+        </EntityType>
+        <EntityType Name="Spirits">
+          <Key>
+            <PropertyRef Name="person_id" />
+          </Key>
+          <Property Name="person_id" Type="int" Nullable="false" />
+          <Property Name="person_religion" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="person_language" Type="varchar" MaxLength="200" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Syndicates">
+          <Key>
+            <PropertyRef Name="syn_id" />
+          </Key>
+          <Property Name="syn_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="syn_name" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="syn_date" Type="varchar" MaxLength="200" Nullable="false" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <Association Name="FK_Criminals_Persons">
+          <End Role="Persons" Type="Self.Persons" Multiplicity="1" />
+          <End Role="Criminals" Type="Self.Criminals" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Persons">
+              <PropertyRef Name="person_id" />
+            </Principal>
+            <Dependent Role="Criminals">
+              <PropertyRef Name="person_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Parameters_Persons">
+          <End Role="Persons" Type="Self.Persons" Multiplicity="1" />
+          <End Role="Parameters" Type="Self.Parameters" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Persons">
+              <PropertyRef Name="person_id" />
+            </Principal>
+            <Dependent Role="Parameters">
+              <PropertyRef Name="person_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Passports_Persons">
+          <End Role="Persons" Type="Self.Persons" Multiplicity="1" />
+          <End Role="Passports" Type="Self.Passports" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Persons">
+              <PropertyRef Name="person_id" />
+            </Principal>
+            <Dependent Role="Passports">
+              <PropertyRef Name="person_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Permits_Persons">
+          <End Role="Persons" Type="Self.Persons" Multiplicity="1" />
+          <End Role="Permits" Type="Self.Permits" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Persons">
+              <PropertyRef Name="person_id" />
+            </Principal>
+            <Dependent Role="Permits">
+              <PropertyRef Name="person_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PSRelations_Persons">
+          <End Role="Persons" Type="Self.Persons" Multiplicity="1" />
+          <End Role="PSRelations" Type="Self.PSRelations" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Persons">
+              <PropertyRef Name="person_id" />
+            </Principal>
+            <Dependent Role="PSRelations">
+              <PropertyRef Name="person_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PSRelations_Syndicates">
+          <End Role="Syndicates" Type="Self.Syndicates" Multiplicity="1" />
+          <End Role="PSRelations" Type="Self.PSRelations" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Syndicates">
+              <PropertyRef Name="syn_id" />
+            </Principal>
+            <Dependent Role="PSRelations">
+              <PropertyRef Name="sys_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Spirits_Persons">
+          <End Role="Persons" Type="Self.Persons" Multiplicity="1" />
+          <End Role="Spirits" Type="Self.Spirits" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Persons">
+              <PropertyRef Name="person_id" />
+            </Principal>
+            <Dependent Role="Spirits">
+              <PropertyRef Name="person_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="InterpolmodelStoreContainer">
+          <EntitySet Name="Criminals" EntityType="Self.Criminals" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Parameters" EntityType="Self.Parameters" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Passports" EntityType="Self.Passports" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Permits" EntityType="Self.Permits" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Persons" EntityType="Self.Persons" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PSRelations" EntityType="Self.PSRelations" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Spirits" EntityType="Self.Spirits" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Syndicates" EntityType="Self.Syndicates" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Criminals_Persons" Association="Self.FK_Criminals_Persons">
+            <End Role="Persons" EntitySet="Persons" />
+            <End Role="Criminals" EntitySet="Criminals" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Parameters_Persons" Association="Self.FK_Parameters_Persons">
+            <End Role="Persons" EntitySet="Persons" />
+            <End Role="Parameters" EntitySet="Parameters" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Passports_Persons" Association="Self.FK_Passports_Persons">
+            <End Role="Persons" EntitySet="Persons" />
+            <End Role="Passports" EntitySet="Passports" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Permits_Persons" Association="Self.FK_Permits_Persons">
+            <End Role="Persons" EntitySet="Persons" />
+            <End Role="Permits" EntitySet="Permits" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PSRelations_Persons" Association="Self.FK_PSRelations_Persons">
+            <End Role="Persons" EntitySet="Persons" />
+            <End Role="PSRelations" EntitySet="PSRelations" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PSRelations_Syndicates" Association="Self.FK_PSRelations_Syndicates">
+            <End Role="Syndicates" EntitySet="Syndicates" />
+            <End Role="PSRelations" EntitySet="PSRelations" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Spirits_Persons" Association="Self.FK_Spirits_Persons">
+            <End Role="Persons" EntitySet="Persons" />
+            <End Role="Spirits" EntitySet="Spirits" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="Interpolmodel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Criminal">
+          <Key>
+            <PropertyRef Name="person_id" />
+          </Key>
+          <Property Name="person_id" Type="Int32" Nullable="false" />
+          <Property Name="person_profession" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="person_role" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Person" Relationship="Self.FK_Criminals_Persons" FromRole="Criminals" ToRole="Persons" />
+        </EntityType>
+        <EntityType Name="Parameter">
+          <Key>
+            <PropertyRef Name="person_id" />
+          </Key>
+          <Property Name="person_id" Type="Int32" Nullable="false" />
+          <Property Name="person_rise" Type="Int32" Nullable="false" />
+          <Property Name="person_weight" Type="Int32" Nullable="false" />
+          <Property Name="person_eyecolor" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="person_haircolor" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Person" Relationship="Self.FK_Parameters_Persons" FromRole="Parameters" ToRole="Persons" />
+        </EntityType>
+        <EntityType Name="Passport">
+          <Key>
+            <PropertyRef Name="person_id" />
+          </Key>
+          <Property Name="person_id" Type="Int32" Nullable="false" />
+          <Property Name="person_citizenship" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="person_nationality" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Person" Relationship="Self.FK_Passports_Persons" FromRole="Passports" ToRole="Persons" />
+        </EntityType>
+        <EntityType Name="Permit">
+          <Key>
+            <PropertyRef Name="person_id" />
+          </Key>
+          <Property Name="person_id" Type="Int32" Nullable="false" />
+          <Property Name="permit_value" Type="String" MaxLength="500" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Person" Relationship="Self.FK_Permits_Persons" FromRole="Permits" ToRole="Persons" />
+        </EntityType>
+        <EntityType Name="Person">
+          <Key>
+            <PropertyRef Name="person_id" />
+          </Key>
+          <Property Name="person_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="person_name" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="person_nickname" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="person_birthday" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="photo_path" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="person_status" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Criminal" Relationship="Self.FK_Criminals_Persons" FromRole="Persons" ToRole="Criminals" />
+          <NavigationProperty Name="Parameter" Relationship="Self.FK_Parameters_Persons" FromRole="Persons" ToRole="Parameters" />
+          <NavigationProperty Name="Passport" Relationship="Self.FK_Passports_Persons" FromRole="Persons" ToRole="Passports" />
+          <NavigationProperty Name="Permit" Relationship="Self.FK_Permits_Persons" FromRole="Persons" ToRole="Permits" />
+          <NavigationProperty Name="PSRelation" Relationship="Self.FK_PSRelations_Persons" FromRole="Persons" ToRole="PSRelations" />
+          <NavigationProperty Name="Spirit" Relationship="Self.FK_Spirits_Persons" FromRole="Persons" ToRole="Spirits" />
+        </EntityType>
+        <EntityType Name="PSRelation">
+          <Key>
+            <PropertyRef Name="person_id" />
+          </Key>
+          <Property Name="person_id" Type="Int32" Nullable="false" />
+          <Property Name="sys_id" Type="Int32" Nullable="false" />
+          <Property Name="dateFrom" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Person" Relationship="Self.FK_PSRelations_Persons" FromRole="PSRelations" ToRole="Persons" />
+          <NavigationProperty Name="Syndicate" Relationship="Self.FK_PSRelations_Syndicates" FromRole="PSRelations" ToRole="Syndicates" />
+        </EntityType>
+        <EntityType Name="Spirit">
+          <Key>
+            <PropertyRef Name="person_id" />
+          </Key>
+          <Property Name="person_id" Type="Int32" Nullable="false" />
+          <Property Name="person_religion" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="person_language" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Person" Relationship="Self.FK_Spirits_Persons" FromRole="Spirits" ToRole="Persons" />
+        </EntityType>
+        <EntityType Name="Syndicate">
+          <Key>
+            <PropertyRef Name="syn_id" />
+          </Key>
+          <Property Name="syn_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="syn_name" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="syn_date" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="PSRelations" Relationship="Self.FK_PSRelations_Syndicates" FromRole="Syndicates" ToRole="PSRelations" />
+        </EntityType>
+        <EntityType Name="sysdiagram">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <Association Name="FK_Criminals_Persons">
+          <End Role="Persons" Type="Self.Person" Multiplicity="1" />
+          <End Role="Criminals" Type="Self.Criminal" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Persons">
+              <PropertyRef Name="person_id" />
+            </Principal>
+            <Dependent Role="Criminals">
+              <PropertyRef Name="person_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Parameters_Persons">
+          <End Role="Persons" Type="Self.Person" Multiplicity="1" />
+          <End Role="Parameters" Type="Self.Parameter" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Persons">
+              <PropertyRef Name="person_id" />
+            </Principal>
+            <Dependent Role="Parameters">
+              <PropertyRef Name="person_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Passports_Persons">
+          <End Role="Persons" Type="Self.Person" Multiplicity="1" />
+          <End Role="Passports" Type="Self.Passport" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Persons">
+              <PropertyRef Name="person_id" />
+            </Principal>
+            <Dependent Role="Passports">
+              <PropertyRef Name="person_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Permits_Persons">
+          <End Role="Persons" Type="Self.Person" Multiplicity="1" />
+          <End Role="Permits" Type="Self.Permit" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Persons">
+              <PropertyRef Name="person_id" />
+            </Principal>
+            <Dependent Role="Permits">
+              <PropertyRef Name="person_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PSRelations_Persons">
+          <End Role="Persons" Type="Self.Person" Multiplicity="1" />
+          <End Role="PSRelations" Type="Self.PSRelation" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Persons">
+              <PropertyRef Name="person_id" />
+            </Principal>
+            <Dependent Role="PSRelations">
+              <PropertyRef Name="person_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Spirits_Persons">
+          <End Role="Persons" Type="Self.Person" Multiplicity="1" />
+          <End Role="Spirits" Type="Self.Spirit" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Persons">
+              <PropertyRef Name="person_id" />
+            </Principal>
+            <Dependent Role="Spirits">
+              <PropertyRef Name="person_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PSRelations_Syndicates">
+          <End Role="Syndicates" Type="Self.Syndicate" Multiplicity="1" />
+          <End Role="PSRelations" Type="Self.PSRelation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Syndicates">
+              <PropertyRef Name="syn_id" />
+            </Principal>
+            <Dependent Role="PSRelations">
+              <PropertyRef Name="sys_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="InterpolContext" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Criminals" EntityType="Self.Criminal" />
+          <EntitySet Name="Parameters" EntityType="Self.Parameter" />
+          <EntitySet Name="Passports" EntityType="Self.Passport" />
+          <EntitySet Name="Permits" EntityType="Self.Permit" />
+          <EntitySet Name="Persons" EntityType="Self.Person" />
+          <EntitySet Name="PSRelations" EntityType="Self.PSRelation" />
+          <EntitySet Name="Spirits" EntityType="Self.Spirit" />
+          <EntitySet Name="Syndicates" EntityType="Self.Syndicate" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
+          <AssociationSet Name="FK_Criminals_Persons" Association="Self.FK_Criminals_Persons">
+            <End Role="Persons" EntitySet="Persons" />
+            <End Role="Criminals" EntitySet="Criminals" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Parameters_Persons" Association="Self.FK_Parameters_Persons">
+            <End Role="Persons" EntitySet="Persons" />
+            <End Role="Parameters" EntitySet="Parameters" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Passports_Persons" Association="Self.FK_Passports_Persons">
+            <End Role="Persons" EntitySet="Persons" />
+            <End Role="Passports" EntitySet="Passports" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Permits_Persons" Association="Self.FK_Permits_Persons">
+            <End Role="Persons" EntitySet="Persons" />
+            <End Role="Permits" EntitySet="Permits" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PSRelations_Persons" Association="Self.FK_PSRelations_Persons">
+            <End Role="Persons" EntitySet="Persons" />
+            <End Role="PSRelations" EntitySet="PSRelations" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Spirits_Persons" Association="Self.FK_Spirits_Persons">
+            <End Role="Persons" EntitySet="Persons" />
+            <End Role="Spirits" EntitySet="Spirits" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PSRelations_Syndicates" Association="Self.FK_PSRelations_Syndicates">
+            <End Role="Syndicates" EntitySet="Syndicates" />
+            <End Role="PSRelations" EntitySet="PSRelations" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="InterpolmodelStoreContainer" CdmEntityContainer="InterpolContext">
+          <EntitySetMapping Name="Criminals">
+            <EntityTypeMapping TypeName="Interpolmodel.Criminal">
+              <MappingFragment StoreEntitySet="Criminals">
+                <ScalarProperty Name="person_id" ColumnName="person_id" />
+                <ScalarProperty Name="person_profession" ColumnName="person_profession" />
+                <ScalarProperty Name="person_role" ColumnName="person_role" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Parameters">
+            <EntityTypeMapping TypeName="Interpolmodel.Parameter">
+              <MappingFragment StoreEntitySet="Parameters">
+                <ScalarProperty Name="person_id" ColumnName="person_id" />
+                <ScalarProperty Name="person_rise" ColumnName="person_rise" />
+                <ScalarProperty Name="person_weight" ColumnName="person_weight" />
+                <ScalarProperty Name="person_eyecolor" ColumnName="person_eyecolor" />
+                <ScalarProperty Name="person_haircolor" ColumnName="person_haircolor" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Passports">
+            <EntityTypeMapping TypeName="Interpolmodel.Passport">
+              <MappingFragment StoreEntitySet="Passports">
+                <ScalarProperty Name="person_id" ColumnName="person_id" />
+                <ScalarProperty Name="person_citizenship" ColumnName="person_citizenship" />
+                <ScalarProperty Name="person_nationality" ColumnName="person_nationality" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Permits">
+            <EntityTypeMapping TypeName="Interpolmodel.Permit">
+              <MappingFragment StoreEntitySet="Permits">
+                <ScalarProperty Name="person_id" ColumnName="person_id" />
+                <ScalarProperty Name="permit_value" ColumnName="permit_value" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Persons">
+            <EntityTypeMapping TypeName="Interpolmodel.Person">
+              <MappingFragment StoreEntitySet="Persons">
+                <ScalarProperty Name="person_id" ColumnName="person_id" />
+                <ScalarProperty Name="person_name" ColumnName="person_name" />
+                <ScalarProperty Name="person_nickname" ColumnName="person_nickname" />
+                <ScalarProperty Name="person_birthday" ColumnName="person_birthday" />
+                <ScalarProperty Name="photo_path" ColumnName="photo_path" />
+                <ScalarProperty Name="person_status" ColumnName="person_status" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PSRelations">
+            <EntityTypeMapping TypeName="Interpolmodel.PSRelation">
+              <MappingFragment StoreEntitySet="PSRelations">
+                <ScalarProperty Name="person_id" ColumnName="person_id" />
+                <ScalarProperty Name="sys_id" ColumnName="sys_id" />
+                <ScalarProperty Name="dateFrom" ColumnName="dateFrom" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Spirits">
+            <EntityTypeMapping TypeName="Interpolmodel.Spirit">
+              <MappingFragment StoreEntitySet="Spirits">
+                <ScalarProperty Name="person_id" ColumnName="person_id" />
+                <ScalarProperty Name="person_religion" ColumnName="person_religion" />
+                <ScalarProperty Name="person_language" ColumnName="person_language" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Syndicates">
+            <EntityTypeMapping TypeName="Interpolmodel.Syndicate">
+              <MappingFragment StoreEntitySet="Syndicates">
+                <ScalarProperty Name="syn_id" ColumnName="syn_id" />
+                <ScalarProperty Name="syn_name" ColumnName="syn_name" />
+                <ScalarProperty Name="syn_date" ColumnName="syn_date" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="Interpolmodel.sysdiagram">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
